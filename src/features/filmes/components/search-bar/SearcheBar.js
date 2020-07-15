@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Formik } from 'formik';
-import apiMovie from '../conf/api.movie';
+import apiMovie from '../../../../components/conf/api.movie';
 
 
 export default class SearchBar extends Component {
