@@ -11,6 +11,7 @@ class App extends Component {
     super(props);
     this.state = {
       movies: null,
+      favoris: [],
       selectedMovie: 0,
       loaded: false
     };
@@ -42,6 +43,29 @@ class App extends Component {
     })
   }
 
+
+  addFavori = (title) => {
+    let favoris = this.state.favoris.slice();
+    const film = this.state.movies.find(movie => movie.title === title);
+    favoris.push(film);
+    this.setState({
+      favoris
+    })
+  }
+
+  removeFavori = (title) => {
+    const favoris = this.state.favoris.slice();
+    const index = this.state.favoris.findIndex( f => f.title === title );
+    favoris.splice(index, 1);
+    this.setState({
+      favoris
+    })
+  }
+
+  
+
+
+
   render() {
     return (
       <Router>
@@ -50,14 +74,17 @@ class App extends Component {
         <Switch>
           <Route path="/films" render={ (props) => {
             return(
-              <Films 
+              <Films
               { ...props } 
-              loaded = {this.state.loaded}
-              updateMovies = {this.updateMovies}
-              updateSelectedMovie = {this.updateSelectedMovie}
-              movies = {this.state.movies}
-              selectedMovie = {this.state.selectedMovie}
-              />
+              loaded={ this.state.loaded }
+              updateMovies={ this.updateMovies }
+              updateSelectedMovie={ this.updateSelectedMovie }
+              movies={ this.state.movies }
+              selectedMovie={ this.state.selectedMovie }
+              addFavori={ this.addFavori }
+              removeFavori={ this.removeFavori }
+              favoris={ this.state.favoris }
+            />
             )
           }} />
           <Route path="/favoris"  component={ Favoris}/>
